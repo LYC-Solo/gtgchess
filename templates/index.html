@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Chess Game</h1>
+    <div class="chessboard">
+        {% for row_idx, row in enumerate(board_layout) %}
+            {% for col_idx, square in enumerate(row) %}
+                <div class="square" data-row="{{ row_idx }}" data-col="{{ col_idx }}">
+                    <img src="{{ url_for('static', filename='images/board/' ~ square.image) }}"
+                         style="transform: rotate({{ square.rotation }}deg);">
+                    
+                    {% if chess_pieces[row_idx][col_idx] %}
+                        <img class="piece" src="{{ url_for('static', filename='images/pieces/' ~ chess_pieces[row_idx][col_idx] ~ '.png') }}">
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/chess.js') }}"></script>
+</body>
+</html>
